@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 
-const connection = mongoose.connect("mongodb+srv://devender:yadavyadav@cluster0.pzyd5lc.mongodb.net/?retryWrites=true&w=majority")
+const connection = mongoose.connect("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.1")
 
 module.exports={
     connection

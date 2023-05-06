@@ -15,14 +15,14 @@ app.get("/",(req,res)=>{
     res.send("Welcome")
 })
 
-app.use("/attendence",attendenceRouter)
+app.use("/attendences",attendenceRouter)
 app.use("/department",departmentRouter)
-app.use("/employee",employeeRouter)
-app.use("/position",positionRouter)
-app.use("/salary",salaryRouter)
+app.use("/employees",employeeRouter)
+app.use("/positions",positionRouter)
+app.use("/salaries",salaryRouter)
 
 
-app.listen(2500,async ()=>{
+app.listen(1500,async ()=>{
     try{
         await connection
         console.log("server")

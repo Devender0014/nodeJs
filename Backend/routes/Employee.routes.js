@@ -1,7 +1,7 @@
-const express= require("express")
-const {EmployeeModel} = require("../model/Employee.model")
+const express = require("express")
+const { EmployeeModel } = require("../model/Employee.model")
 const employeeRouter = express.Router()
-const {PositionModel} = require("../model/Position.model")
+const { PositionModel } = require("../model/Position.model")
 
 
 employeeRouter.post('/', async (req, res) => {
@@ -15,7 +15,7 @@ employeeRouter.post('/', async (req, res) => {
     if (!position) {
       return res.status(400).json({ message: 'Invalid position id' });
     }
-    const employee = new Employee({
+    const employee = new EmployeeModel({
       name,
       email,
       phone_number,
@@ -24,12 +24,54 @@ employeeRouter.post('/', async (req, res) => {
       position: position._id
     });
     const newEmployee = await employee.save();
-    res.status(201).json(newEmployee);
+    res.send(newEmployee);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.send({ message: err.message });
   }
 });
 
-module.exports={
-    employeeRouter
+employeeRouter.get("/", async (req, res) => {
+  try {
+    const employee = await EmployeeModel.find();
+    res.json(employee);
+  } catch (error) {
+    res.send("err");
+  }
+})
+
+employeeRouter.get("/:_id", async (req, res) => {
+  try {
+    const employee = await EmployeeModel.findById(req.params.id);
+    res.send(employee)
+  } catch (err) {
+    res.send(err)
+  }
+})
+
+employeeRouter.patch("/:_id", async (req, res) => {
+  try {
+    const updateEmployee = await EmployeeModel.findByIdAndUpdate(rew.params.id, {
+      department_id, position_id, name, email, phone_number, address, updated_at: Date.now()
+    })
+  }catch(err){
+    res.send(err)
+  }
+
+})
+
+employeeRouter.delete("/:id", async (req, res) => {
+  console.log(req.params._id)
+  try{
+    const deleteEmployee = await EmployeeModel.findByIdAndDelete(req.params._id)
+    res.send(deleteEmployee)
+  }catch(err){
+    res.send(err)
+  }
+
+})
+
+
+
+module.exports = {
+  employeeRouter
 }
